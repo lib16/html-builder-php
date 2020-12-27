@@ -1,0 +1,29 @@
+{
+	"name" : "lib16/html",
+	"description" : "lib16 RSS Builder is a PHP 7 library for creating RSS feeds.",
+	"keywords" : [
+		"rss",
+		"builder",
+		"writer",
+		"feeds"
+	],
+	"homepage" : "https://github.com/lib16/html-builder-php",
+	"license" : "MIT",
+	"require" : {
+		"php" : ">=7.4",
+		"lib16/xml" : ">=1.3.1"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "^9"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Lib16\\HTML\\" : "src/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Lib16\\HTML\\Tests\\" : "tests/"
+		}
+	}
+}
