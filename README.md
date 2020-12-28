@@ -7,5 +7,5 @@ therefore you can use [Composer](https://getcomposer.org) to install it.
 Run the following command in your shell:
 
 ```
-composer require lib16/html dev-master
+composer require lib16/html dev-main
 ```
