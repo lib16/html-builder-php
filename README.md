@@ -1,8 +1,8 @@
 # Lib16 HTML Builder for PHP 8
 A library for creating HTML5 written in PHP 8.
 
-[![Build Status](https://travis-ci.com/lib16/rss-builder-php.svg?branch=master)](https://travis-ci.com/lib16/rss-builder-php)
-[![Coverage](https://codecov.io/gh/lib16/rss-builder-php/branch/master/graph/badge.svg)](https://codecov.io/gh/lib16/rss-builder-php)
+[![Build Status](https://travis-ci.com/lib16/html-builder-php.svg?branch=master)](https://travis-ci.com/lib16/html-builder-php)
+[![Coverage](https://codecov.io/gh/lib16/html-builder-php/branch/master/graph/badge.svg)](https://codecov.io/gh/lib16/html-builder-php)
 
 ## Installation with Composer
 This package is available on [packagist](https://packagist.org/packages/lib16/html),
