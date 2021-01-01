@@ -196,8 +196,11 @@ class TableTest extends TestCase
     /**
      * @dataProvider bodiesProvider
      */
-    public function testBodies(string $expected, bool $multiple): void
-    {
+    public function testBodies(
+        string $expected,
+        bool $single,
+        string ...$keys
+    ): void {
         $data = [
             ['name' => 'Foo', 'town' => 'Berlin', 'amount' => 20],
             ['name' => 'Foo', 'town' => 'Berlin', 'amount' => 12],
@@ -208,7 +211,9 @@ class TableTest extends TestCase
             ['name' => 'Baz', 'town' => 'Munich', 'amount' => 17]
         ];
         $expected = str_replace('    ', "\t", $expected);
-        $actual = Table::create()->bodies($data, $multiple)->getMarkup();
+        $actual = $single
+            ? Table::create()->body($data, ...$keys)->getMarkup()
+            : Table::create()->bodies($data, ...$keys)->getMarkup();;
         $this->assertEquals($expected, $actual);
 
         foreach ($data as $i => $row) {
@@ -218,7 +223,9 @@ class TableTest extends TestCase
             $obj->amount = $row['amount'];
             $data[$i] = $obj;
         }
-        $actual = Table::create()->bodies($data,$multiple)->getMarkup();
+        $actual = $single
+            ? Table::create()->body($data, ...$keys)->getMarkup()
+            : Table::create()->bodies($data, ...$keys)->getMarkup();;
         $this->assertEquals($expected, $actual);
     }
 
@@ -257,7 +264,7 @@ class TableTest extends TestCase
             <td>17</td>
         </tr>
     </tbody>
-</table>', false],
+</table>', true],
             ['<table>
     <tbody>
         <tr>
@@ -294,7 +301,76 @@ class TableTest extends TestCase
             <td>17</td>
         </tr>
     </tbody>
-</table>', true],
+</table>', false],
+            ['<table>
+    <tbody>
+        <tr>
+            <td rowspan="2">Berlin</td>
+            <td rowspan="2">Foo</td>
+            <td>20</td>
+        </tr>
+        <tr>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Cologne</td>
+            <td>Foo</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>Bar</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Hamburg</td>
+            <td rowspan="2">Bar</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>Munich</td>
+            <td>Baz</td>
+            <td>17</td>
+        </tr>
+    </tbody>
+</table>', true, 'town', 'name', 'amount'],
+            ['<table>
+    <tbody>
+        <tr>
+            <td rowspan="2">Berlin</td>
+            <td>Foo</td>
+        </tr>
+        <tr>
+            <td>Foo</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td rowspan="2">Cologne</td>
+            <td>Foo</td>
+        </tr>
+        <tr>
+            <td>Bar</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td rowspan="2">Hamburg</td>
+            <td>Bar</td>
+        </tr>
+        <tr>
+            <td>Bar</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td>Munich</td>
+            <td>Baz</td>
+        </tr>
+    </tbody>
+</table>', false, 'town', 'name']
         ];
     }
 }

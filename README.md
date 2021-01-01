@@ -24,20 +24,29 @@ require_once 'vendor/autoload.php';
 use Lib16\HTML\Table;
 
 $data = [
-    ['model' => 'Panther', 'store' => 'Berlin', 'quantity' => 20],
-    ['model' => 'Panther', 'store' => 'Berlin', 'quantity' => 12],
-    ['model' => 'Panther', 'store' => 'Cologne', 'quantity' => 12],
-    ['model' => 'Lion', 'store' => 'Cologne', 'quantity' => 12],
-    ['model' => 'Lion', 'store' => 'Hamburg', 'quantity' => 15],
-    ['model' => 'Lion', 'store' => 'Hamburg', 'quantity' => 15]
+    ['model' => 'Panther', 'city' => 'Berlin', 'quantity/store' => 20],
+    ['model' => 'Panther', 'city' => 'Berlin', 'quantity/store' => 12],
+    ['model' => 'Panther', 'city' => 'Cologne', 'quantity/store' => 12],
+    ['model' => 'Lion', 'city' => 'Cologne', 'quantity/store' => 12],
+    ['model' => 'Lion', 'city' => 'Hamburg', 'quantity/store' => 15],
+    ['model' => 'Lion', 'city' => 'Hamburg', 'quantity/store' => 15],
+    ['model' => 'Lion', 'city' => 'Munich', 'quantity/store' => 15],
 ];
 $table = Table::create('Availability')->setClass('t1');
-$table->thead()->tr()->thn('model', 'store', 'quantity');
+$table->thead()->tr()->thn('model', 'city', 'quantity/store');
 $table->bodies($data);
 print $table;
 
+// change order
+$keys = ['city', 'model', 'quantity/store'];
+$table = Table::create('Availability')->setClass('t1');
+$table->thead()->tr()->headerCells($keys);
+$table->bodies($data, ...$keys);
+print $table;
+
+// row by row
 $table = Table::create('Availability')->setClass('t2');
-$table->thead()->tr()->thn('model', 'store', 'quantity');
+$table->thead()->tr()->thn('model', 'city', 'quantity/store');
 foreach ($data as $row) {
     $table->tr()->dataCells($row);
 }
